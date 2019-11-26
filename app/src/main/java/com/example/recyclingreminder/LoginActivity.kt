@@ -45,7 +45,6 @@ class LoginActivity : AppCompatActivity() {
     private fun loginUserAccount() {
         progressBar!!.visibility = View.VISIBLE
 
-        // Todo : Retrieve eamil and password, make sure it's not empty
         val email = userEmail?.text.toString()
         val password = userPassword?.text.toString()
 
@@ -61,9 +60,6 @@ class LoginActivity : AppCompatActivity() {
             return
         }
 
-        // Todo : Sigin with given Email and Password
-        // Retrieve UID for Current User if Login successful and store in intent, for the key UserID
-        // Start Intent DashboardActivity if Registration Successful
         mAuth!!.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
                 progressBar!!.visibility = View.GONE
