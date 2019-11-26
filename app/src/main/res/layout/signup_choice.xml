@@ -21,4 +21,10 @@
         android:background="@android:color/transparent"
         android:text="As Garbage Collector" />
 
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="TextView" />
+
 </LinearLayout>
