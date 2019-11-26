@@ -6,6 +6,15 @@
     android:orientation="vertical"
     android:visibility="visible">
 
+    <TextView
+        android:id="@+id/signuptitle"
+        android:layout_width="match_parent"
+        android:layout_height="77dp"
+        android:gravity="center"
+        android:text="REGISTER"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textStyle="bold" />
+
     <Button
         android:id="@+id/homeowner_signup"
         android:layout_width="match_parent"
@@ -20,11 +29,5 @@
         android:layout_height="wrap_content"
         android:background="@android:color/transparent"
         android:text="As Garbage Collector" />
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="TextView" />
 
 </LinearLayout>
