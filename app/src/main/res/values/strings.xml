@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">RecyclingReminder</string>
+    <string name="sign_up_string">Sign Up</string>
+    <string name="as_homeowner_string">As Homeowner</string>
+    <string name="name_string">Name</string>
+    <string name="address_string">Address</string>
+    <string name="phone_number_string">Phone Number</string>
 </resources>
