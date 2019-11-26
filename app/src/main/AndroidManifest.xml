@@ -19,7 +19,21 @@
         <activity android:name=".LoginActivity" />
         <activity android:name=".LoginChoiceActivity" />
         <activity android:name=".RegistrationActivity" />
-        <activity android:name=".RegistrationChoiceActivity"/>
+        <activity android:name=".RegistrationChoiceActivity" />
+        <activity android:name=".GarbageCollectorRegistrationActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".HomeownerRegistrationActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
