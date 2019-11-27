@@ -17,18 +17,17 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:text="LOGIN" />
+        android:text="@string/login" />
 
     <TextView
         android:id="@+id/asGarbageCollector"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-
         android:layout_marginTop="48dp"
-        android:text="As Garbage Collector"
+        android:text="@string/as_garbage_collector"
         android:textSize="36sp"
         android:textStyle="bold"
-        android:visibility="gone"
+        android:visibility="visible"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/loginTitle2" />
@@ -41,7 +40,7 @@
         android:layout_marginTop="48dp"
         android:layout_marginRight="16dp"
 
-        android:hint="Email"
+        android:hint="@string/email"
         android:importantForAutofill="no"
         android:inputType="textEmailAddress"
         android:textSize="24sp"
@@ -57,7 +56,7 @@
         android:layout_marginTop="48dp"
         android:layout_marginRight="16dp"
 
-        android:hint="Password"
+        android:hint="@string/password"
         android:importantForAutofill="no"
         android:inputType="textWebPassword"
         android:textSize="24sp"
@@ -70,6 +69,7 @@
         android:layout_width="383dp"
         android:layout_height="55dp"
         android:layout_marginTop="16dp"
+        android:text="@string/loginButton1"
         app:layout_constraintLeft_toLeftOf="@id/garbageCollectorPassword"
         app:layout_constraintTop_toBottomOf="@id/garbageCollectorPassword" />
 
@@ -77,9 +77,9 @@
         android:id="@+id/progressBar2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="165dp"
+        android:layout_marginStart="165dp"
         android:layout_marginTop="16dp"
-        android:visibility="visible"
+        android:visibility="gone"
         app:layout_constraintLeft_toLeftOf="@id/login2"
         app:layout_constraintTop_toBottomOf="@id/login2"/>
 

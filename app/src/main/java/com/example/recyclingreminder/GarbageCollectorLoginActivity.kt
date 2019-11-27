@@ -59,7 +59,7 @@ class GarbageCollectorLoginActivity: AppCompatActivity() {
                 progressBar!!.visibility = View.GONE
                 if (task.isSuccessful()) {
                     val uid = mAuth!!.currentUser?.uid
-                    val intent = Intent(this, RegistrationActivity:: class.java)
+                    val intent = Intent(this, GarbageCollectorDashboardActivity:: class.java)
                     intent.putExtra("userid", uid)
                     intent.putExtra("useremail", email)
                     startActivity(intent)

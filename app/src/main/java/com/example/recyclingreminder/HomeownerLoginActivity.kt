@@ -59,7 +59,7 @@ class HomeownerLoginActivity : AppCompatActivity() {
                 progressBar!!.visibility = View.GONE
                 if (task.isSuccessful()) {
                     val uid = mAuth!!.currentUser?.uid
-                    val intent = Intent(this, RegistrationActivity:: class.java)
+                    val intent = Intent(this, HomeOwnerDashboard :: class.java)
                     intent.putExtra("userid", uid)
                     intent.putExtra("usermail", email)
                     startActivity(intent)

@@ -19,7 +19,7 @@ class LoginChoiceActivity : AppCompatActivity() {
             startActivity(intent)
         }
         garbageCollectorBtn!!.setOnClickListener {
-            val intent = Intent(this, HomeownerLoginActivity::class.java)
+            val intent = Intent(this, GarbageCollectorLoginActivity::class.java)
             startActivity(intent)
         }
     }
