@@ -1,18 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:visibility="visible"
-    tools:visibility="visible">
+    android:layout_height="match_parent">
 
     <TextView
         android:id="@+id/loginTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:textSize="48sp"
+
+        android:textSize="32sp"
         android:textStyle="bold"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -24,9 +22,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="32dp"
         android:text="@string/as_homeowner_string"
-        android:textSize="36sp"
+        android:textSize="24sp"
         android:textStyle="bold"
         android:visibility="visible"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -35,40 +33,29 @@
 
     <EditText
         android:id="@+id/homeownerEmail"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="48dp"
-
+        style="@style/EditTextTheme"
         android:hint="@string/email"
         android:importantForAutofill="no"
         android:inputType="textEmailAddress"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/asHomeowner" />
+
+        app:layout_constraintTop_toBottomOf="@id/asHomeowner"
+        app:layout_constraintLeft_toLeftOf="@id/asHomeowner"/>
 
     <EditText
         android:id="@+id/homeownerPassword"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="48dp"
-        android:layout_marginRight="16dp"
-
+        style="@style/EditTextTheme"
         android:hint="@string/password"
         android:importantForAutofill="no"
         android:inputType="textWebPassword"
-        android:textSize="24sp"
-        android:textStyle="bold"
+
         app:layout_constraintLeft_toLeftOf="@id/homeownerEmail"
         app:layout_constraintTop_toBottomOf="@id/homeownerEmail"/>
 
     <Button
         android:id="@+id/login1"
-        android:layout_width="383dp"
-        android:layout_height="55dp"
-        android:layout_marginTop="16dp"
+        style="@style/ButtonTheme"
         android:text="@string/loginButton"
+
         app:layout_constraintLeft_toLeftOf="@id/homeownerPassword"
         app:layout_constraintTop_toBottomOf="@id/homeownerPassword" />
 
