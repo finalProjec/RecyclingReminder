@@ -1,11 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:visibility="visible"
-    tools:visibility="visible">
+    android:layout_height="match_parent">
 
     <TextView
         android:id="@+id/sign_up_string_textview"
@@ -13,21 +10,21 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
 
-        android:textSize="48sp"
+        android:text="@string/sign_up_string"
+        android:textSize="32sp"
         android:textStyle="bold"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="@string/sign_up_string" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/as_homeowner_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="32dp"
 
-        android:hint="@string/as_homeowner_string"
-        android:textSize="36sp"
+        android:text="@string/as_homeowner_string"
+        android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -35,48 +32,43 @@
 
     <EditText
         android:id="@+id/homeowner_email_edittext"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="48dp"
-        android:layout_marginRight="16dp"
-
+        style="@style/EditTextTheme"
         android:hint="@string/email_string"
-        android:importantForAutofill="no"
         android:inputType="textEmailAddress"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@id/as_homeowner_textview" />
+        android:importantForAutofill="no"
+
+        app:layout_constraintTop_toBottomOf="@id/as_homeowner_textview"
+        app:layout_constraintLeft_toLeftOf="@id/as_homeowner_textview" />
 
     <EditText
         android:id="@+id/homeowner_password_edittext"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="48dp"
-        android:layout_marginRight="16dp"
-
+        style="@style/EditTextTheme"
         android:hint="@string/password_string"
-        android:importantForAutofill="no"
         android:inputType="textPassword"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@id/homeowner_email_edittext" />
+        android:importantForAutofill="no"
+
+        app:layout_constraintTop_toBottomOf="@id/homeowner_email_edittext"
+        app:layout_constraintLeft_toLeftOf="@id/homeowner_email_edittext" />
 
     <EditText
         android:id="@+id/homeowner_address_edittext"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="48dp"
-        android:layout_marginRight="16dp"
-
+        style="@style/EditTextTheme"
         android:hint="@string/address_string"
-        android:importantForAutofill="no"
         android:inputType="textPostalAddress"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@id/homeowner_password_edittext" />
+        android:importantForAutofill="no"
+
+        app:layout_constraintTop_toBottomOf="@id/homeowner_password_edittext"
+        app:layout_constraintLeft_toLeftOf="@id/homeowner_password_edittext" />
+
+    <EditText
+        android:id="@+id/homeowner_phone_number_edittext"
+        style="@style/EditTextTheme"
+        android:hint="@string/phone_number_string"
+        android:inputType="phone"
+        android:importantForAutofill="no"
+
+        app:layout_constraintTop_toBottomOf="@id/homeowner_address_edittext"
+        app:layout_constraintLeft_toLeftOf="@id/homeowner_password_edittext"/>
 
     <Button
         android:id="@+id/homeowner_register_button"
@@ -86,8 +78,8 @@
         android:layout_marginTop="16dp"
         android:layout_marginRight="16dp"
 
-        tools:text="@string/register_string"
-        app:layout_constraintTop_toBottomOf="@id/homeowner_address_edittext"/>
+        android:text="@string/register_string"
+        app:layout_constraintTop_toBottomOf="@id/homeowner_phone_number_edittext"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

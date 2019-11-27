@@ -16,7 +16,7 @@ class HomeownerRegistrationActivity : AppCompatActivity() {
     private var emailET: EditText? = null
     private var passwordET: EditText? = null
     private var addressET: EditText? = null
-    //private var phoneNumberET: EditText? = null
+    private var phoneNumberET: EditText? = null
     private var regBtn: Button? = null
     private var progressBar: ProgressBar? = null
     private var mAuth: FirebaseAuth? = null
@@ -38,12 +38,12 @@ class HomeownerRegistrationActivity : AppCompatActivity() {
         val email: String
         val password: String
         val address: String //TODO: address not stored anywhere
-        //val phoneNumber: String
+        val phoneNumber: String
 
         email = emailET!!.text.toString()
         password = passwordET!!.text.toString()
         address = addressET!!.text.toString()
-        //phoneNumber = phoneNumberET!!.text.toString()
+        phoneNumber = phoneNumberET!!.text.toString()
 
         if (TextUtils.isEmpty(email)) {
             Toast.makeText(applicationContext, "Please enter your name...", Toast.LENGTH_LONG)
@@ -60,10 +60,10 @@ class HomeownerRegistrationActivity : AppCompatActivity() {
                 .show()
             return
         }
-//        if (TextUtils.isEmpty(phoneNumber)) {
-//            Toast.makeText(applicationContext, "Please enter your phone Number!", Toast.LENGTH_LONG).show()
-//            return
-//        }
+        if (TextUtils.isEmpty(phoneNumber)) {
+            Toast.makeText(applicationContext, "Please enter your phone Number!", Toast.LENGTH_LONG).show()
+            return
+        }
 
         //TODO: change to phone number later
         mAuth!!.createUserWithEmailAndPassword(email, password).addOnCompleteListener { task ->
@@ -92,7 +92,7 @@ class HomeownerRegistrationActivity : AppCompatActivity() {
         emailET = findViewById(R.id.homeowner_email_edittext)
         passwordET = findViewById(R.id.homeowner_password_edittext)
         addressET = findViewById(R.id.homeowner_address_edittext)
-        //phoneNumberET = findViewById(R.id.garbage_phone_number_edittext)
+        phoneNumberET = findViewById(R.id.homeowner_phone_number_edittext)
         regBtn = findViewById(R.id.homeowner_register_button)
         progressBar = findViewById(R.id.progressBar)
     }
