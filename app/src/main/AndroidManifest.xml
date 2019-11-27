@@ -16,7 +16,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".LoginActivity" />
+        <activity android:name=".HomeownerLoginActivity" />
+        <activity android:name=".GarbageCollectorLoginActivity" />
         <activity android:name=".LoginChoiceActivity" />
         <activity android:name=".RegistrationActivity" />
         <activity android:name=".RegistrationChoiceActivity"/>

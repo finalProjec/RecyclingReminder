@@ -14,7 +14,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 
-class LoginActivity : AppCompatActivity() {
+class GarbageCollectorLoginActivity: AppCompatActivity() {
     private var mDatabaseReference: DatabaseReference? = null
     private var mDatabase: FirebaseDatabase? = null
     private var userEmail: EditText? = null
@@ -25,12 +25,10 @@ class LoginActivity : AppCompatActivity() {
     private var mAuth: FirebaseAuth? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_login_homeowner)
+        setContentView(R.layout.activity_login_garbagecollector)
 
-
-
-        mDatabase = FirebaseDatabase.getInstance()
-        mDatabaseReference = mDatabase!!.reference!!.child("Users")
+//        mDatabase = FirebaseDatabase.getInstance()
+//        mDatabaseReference = mDatabase!!.reference!!.child("Users")
         mAuth = FirebaseAuth.getInstance()
 
         initializeUI()
@@ -63,7 +61,7 @@ class LoginActivity : AppCompatActivity() {
                     val uid = mAuth!!.currentUser?.uid
                     val intent = Intent(this, RegistrationActivity:: class.java)
                     intent.putExtra("userid", uid)
-                    intent.putExtra(UserMail, email)
+                    intent.putExtra("useremail", email)
                     startActivity(intent)
                 }
                 else {
@@ -75,16 +73,10 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun initializeUI() {
-        userEmail = findViewById(R.id.email)
-        userPassword = findViewById(R.id.password)
+        userEmail = findViewById(R.id.garbageCollectorEmail)
+        userPassword = findViewById(R.id.garbageCollectorPassword)
 
-        loginBtn = findViewById(R.id.login)
-        progressBar = findViewById(R.id.progressBar)
-    }
-
-    companion object {
-        val UserMail = "com.example.tesla.myhomelibrary.UMail"
-        val UserID = "com.example.tesla.myhomelibrary.UID"
-
+        loginBtn = findViewById(R.id.login2)
+        progressBar = findViewById(R.id.progressBar2)
     }
 }
