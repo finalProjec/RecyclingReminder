@@ -57,7 +57,8 @@ class GarbageCollectorLoginActivity: AppCompatActivity() {
         mAuth!!.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
                 progressBar!!.visibility = View.GONE
-                if (task.isSuccessful()) {
+
+                if (task.isSuccessful) {
                     val uid = mAuth!!.currentUser?.uid
                     val intent = Intent(this, GarbageCollectorDashboardActivity:: class.java)
                     intent.putExtra("userid", uid)
