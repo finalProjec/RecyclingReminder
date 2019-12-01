@@ -35,33 +35,33 @@ class HomeownerRegistrationActivity : AppCompatActivity() {
     private fun registerNewUser() {
         progressBar!!.visibility = View.VISIBLE
 
-        val email: String
-        val password: String
-        val address: String //TODO: address not stored anywhere
-        val phoneNumber: String
-
-        email = emailET!!.text.toString()
-        password = passwordET!!.text.toString()
-        address = addressET!!.text.toString()
-        phoneNumber = phoneNumberET!!.text.toString()
+        val email: String = emailET!!.text.toString()
+        val password: String = passwordET!!.text.toString()
+        val address: String  = addressET!!.text.toString() //TODO: address not stored anywhere
+        val phoneNumber: String = phoneNumberET!!.text.toString()
 
         if (TextUtils.isEmpty(email)) {
             Toast.makeText(applicationContext, "Please enter your name...", Toast.LENGTH_LONG)
                 .show()
+            progressBar!!.visibility = View.GONE
             return
         }
         if (TextUtils.isEmpty(password)) {
             Toast.makeText(applicationContext, "Please enter your password...", Toast.LENGTH_LONG)
                 .show()
+            progressBar!!.visibility = View.GONE
             return
         }
         if (TextUtils.isEmpty(address)) {
             Toast.makeText(applicationContext, "Please enter your employee ID!", Toast.LENGTH_LONG)
                 .show()
+            progressBar!!.visibility = View.GONE
             return
         }
         if (TextUtils.isEmpty(phoneNumber)) {
-            Toast.makeText(applicationContext, "Please enter your phone Number!", Toast.LENGTH_LONG).show()
+            Toast.makeText(applicationContext, "Please enter your phone Number!", Toast.LENGTH_LONG)
+                .show()
+            progressBar!!.visibility = View.GONE
             return
         }
 
@@ -83,7 +83,6 @@ class HomeownerRegistrationActivity : AppCompatActivity() {
                     "Registration failed! Please try again later",
                     Toast.LENGTH_LONG
                 ).show()
-                progressBar!!.visibility = View.GONE
             }
         }
     }
@@ -94,6 +93,6 @@ class HomeownerRegistrationActivity : AppCompatActivity() {
         addressET = findViewById(R.id.homeowner_address_edittext)
         phoneNumberET = findViewById(R.id.homeowner_phone_number_edittext)
         regBtn = findViewById(R.id.homeowner_register_button)
-        progressBar = findViewById(R.id.progressBar)
+        progressBar = findViewById(R.id.homeowner_progress_bar)
     }
 }
