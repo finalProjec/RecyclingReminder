@@ -3,6 +3,7 @@ package com.example.recyclingreminder
 import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
@@ -10,8 +11,14 @@ import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 
 class HomeownerRegistrationActivity : AppCompatActivity() {
+
+    companion object {
+        val TAG = "final"
+        val HOMEOWNERS = "homeowners"
+    }
 
     private var emailET: EditText? = null
     private var passwordET: EditText? = null
@@ -20,6 +27,7 @@ class HomeownerRegistrationActivity : AppCompatActivity() {
     private var regBtn: Button? = null
     private var progressBar: ProgressBar? = null
     private var mAuth: FirebaseAuth? = null
+    private val firestore = FirebaseFirestore.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,15 +37,15 @@ class HomeownerRegistrationActivity : AppCompatActivity() {
 
         initializeUI()
 
-        regBtn!!.setOnClickListener { registerNewUser() }
+        regBtn!!.setOnClickListener { validateInputs() }
     }
 
-    private fun registerNewUser() {
+    private fun validateInputs() {
         progressBar!!.visibility = View.VISIBLE
 
         val email: String = emailET!!.text.toString()
         val password: String = passwordET!!.text.toString()
-        val address: String  = addressET!!.text.toString() //TODO: address not stored anywhere
+        val address: String = addressET!!.text.toString() //TODO: address not stored anywhere
         val phoneNumber: String = phoneNumberET!!.text.toString()
 
         if (TextUtils.isEmpty(email)) {
@@ -65,6 +73,16 @@ class HomeownerRegistrationActivity : AppCompatActivity() {
             return
         }
 
+        registerNewUser(email, password, address, phoneNumber)
+    }
+
+    private fun registerNewUser(
+        email: String,
+        password: String,
+        address: String,
+        phoneNumber: String
+    ) {
+
         //TODO: change to phone number later
         mAuth!!.createUserWithEmailAndPassword(email, password).addOnCompleteListener { task ->
             if (task.isSuccessful) {
@@ -72,17 +90,33 @@ class HomeownerRegistrationActivity : AppCompatActivity() {
                     .show()
                 progressBar!!.visibility = View.GONE
 
+                // add homeowner to Firestore
+                val uid = mAuth!!.currentUser!!.uid
+                val docData = hashMapOf(
+                    "phonenumber" to phoneNumber,
+                    "address" to address
+                )
+
+                firestore.collection(HOMEOWNERS).document(uid).set(docData)
+                    .addOnSuccessListener {
+                        Log.d(
+                            GarbageCollectorRegistrationActivity.TAG, "New user added successfully"
+                        )
+                    }
+                    .addOnFailureListener {
+                        Log.w(GarbageCollectorRegistrationActivity.TAG, "Error adding new user")
+                    }
+
                 val intent = Intent(
-                    this@HomeownerRegistrationActivity,
-                    HomeownerLoginActivity::class.java
+                    this@HomeownerRegistrationActivity, LoginActivity::class.java
                 ) //change LoginActivity
                 startActivity(intent)
             } else {
                 Toast.makeText(
-                    applicationContext,
-                    "Registration failed! Please try again later",
+                    applicationContext, "Registration failed! Please try again later",
                     Toast.LENGTH_LONG
                 ).show()
+                progressBar!!.visibility = View.GONE
             }
         }
     }

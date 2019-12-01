@@ -39,23 +39,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".HomeownerLoginActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".GarbageCollectorLoginActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".LoginChoiceActivity" />
-        <activity android:name=".RegistrationActivity" />
         <activity android:name=".RegistrationChoiceActivity" />
+        <activity android:name=".LoginActivity" />
         <activity android:name=".GarbageCollectorRegistrationActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -11,9 +11,7 @@ import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.firestore.FirebaseFirestore
-import kotlinx.android.synthetic.main.activity_main.*
 
 class GarbageCollectorRegistrationActivity : AppCompatActivity() {
 
@@ -21,7 +19,7 @@ class GarbageCollectorRegistrationActivity : AppCompatActivity() {
         val emailDomain = "@recycling.gov"
         val unregisteredIds = "unregistered employee ids"
         val TAG = "final"
-        val garbageCollectors = "garbagecollectors"
+        val GARBAGECOLLECTORS = "garbagecollectors"
     }
 
     private var emailET: EditText? = null
@@ -30,7 +28,7 @@ class GarbageCollectorRegistrationActivity : AppCompatActivity() {
     private var regBtn: Button? = null
     private var progressBar: ProgressBar? = null
     private var mAuth: FirebaseAuth? = null
-    private val db = FirebaseFirestore.getInstance()
+    private val firestore = FirebaseFirestore.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         Log.i(TAG, "onCreate")
@@ -57,8 +55,7 @@ class GarbageCollectorRegistrationActivity : AppCompatActivity() {
 
         if (TextUtils.isEmpty(email) || !email.endsWith(emailDomain)) {
             Toast.makeText(
-                applicationContext,
-                "Please enter your government issued email...",
+                applicationContext, "Please enter your government issued email...",
                 Toast.LENGTH_LONG
             ).show()
             progressBar!!.visibility = View.GONE
@@ -78,7 +75,7 @@ class GarbageCollectorRegistrationActivity : AppCompatActivity() {
         }
 
         // check if employee ID exists in the Firestore database
-        val docRef = db.collection(unregisteredIds).document(employeeID)
+        val docRef = firestore.collection(unregisteredIds).document(employeeID)
         docRef.get()
             .addOnSuccessListener { document ->
                 if (document == null || !document.exists()) {
@@ -108,22 +105,20 @@ class GarbageCollectorRegistrationActivity : AppCompatActivity() {
                 progressBar!!.visibility = View.GONE
 
                 //add user to Firestore
-                val newUser = mAuth!!.currentUser
+                val uid = mAuth!!.currentUser!!.uid
                 val docData = hashMapOf("employee id" to employeeID)
 
-                db.collection(garbageCollectors).document(newUser!!.uid).set(docData)
+                firestore.collection(GARBAGECOLLECTORS).document(uid).set(docData)
                     .addOnSuccessListener { Log.d(TAG, "New user added successfully") }
-                    .addOnFailureListener{ Log.w(TAG, "Error adding new user")}
+                    .addOnFailureListener { Log.w(TAG, "Error adding new user") }
 
                 val intent = Intent(
-                    this@GarbageCollectorRegistrationActivity,
-                    GarbageCollectorLoginActivity::class.java
+                    this@GarbageCollectorRegistrationActivity, LoginActivity::class.java
                 ) //change LoginActivity
                 startActivity(intent)
             } else {
                 Toast.makeText(
-                    applicationContext,
-                    "Registration failed! Please try again later",
+                    applicationContext, "Registration failed! Please try again later",
                     Toast.LENGTH_LONG
                 ).show()
                 progressBar!!.visibility = View.GONE

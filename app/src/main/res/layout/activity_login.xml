@@ -17,56 +17,43 @@
         app:layout_constraintTop_toTopOf="parent"
         android:text="@string/loginTitle" />
 
-    <TextView
-        android:id="@+id/asHomeowner"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-
-        android:layout_marginTop="32dp"
-        android:text="@string/as_homeowner_string"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        android:visibility="visible"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/loginTitle" />
-
     <EditText
-        android:id="@+id/homeownerEmail"
+        android:id="@+id/login_email"
         style="@style/EditTextTheme"
         android:hint="@string/email"
         android:importantForAutofill="no"
         android:inputType="textEmailAddress"
 
-        app:layout_constraintTop_toBottomOf="@id/asHomeowner"
-        app:layout_constraintLeft_toLeftOf="@id/asHomeowner"/>
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/loginTitle"/>
 
     <EditText
-        android:id="@+id/homeownerPassword"
+        android:id="@+id/login_password"
         style="@style/EditTextTheme"
         android:hint="@string/password"
         android:importantForAutofill="no"
         android:inputType="textWebPassword"
 
-        app:layout_constraintLeft_toLeftOf="@id/homeownerEmail"
-        app:layout_constraintTop_toBottomOf="@id/homeownerEmail"/>
+        app:layout_constraintLeft_toLeftOf="@id/login_email"
+        app:layout_constraintTop_toBottomOf="@id/login_email"/>
 
     <Button
-        android:id="@+id/login1"
+        android:id="@+id/login_button"
         style="@style/ButtonTheme"
         android:text="@string/loginButton"
 
-        app:layout_constraintLeft_toLeftOf="@id/homeownerPassword"
-        app:layout_constraintTop_toBottomOf="@id/homeownerPassword" />
+        app:layout_constraintLeft_toLeftOf="@id/login_password"
+        app:layout_constraintTop_toBottomOf="@id/login_password" />
 
     <ProgressBar
-        android:id="@+id/progressBar1"
+        android:id="@+id/login_progress_bar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="165dp"
         android:layout_marginTop="16dp"
         android:visibility="gone"
-        app:layout_constraintLeft_toLeftOf="@id/login1"
-        app:layout_constraintTop_toBottomOf="@id/login1" />
+        app:layout_constraintLeft_toLeftOf="@id/login_button"
+        app:layout_constraintTop_toBottomOf="@id/login_button" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
