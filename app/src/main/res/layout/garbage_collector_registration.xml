@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/sign_up_string_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+
+        android:text="@string/sign_up_string"
+        android:textSize="32sp"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/as_garbage_collector_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+
+        android:hint="@string/as_garbage_collector_string"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/sign_up_string_textview" />
+
+    <EditText
+        android:id="@+id/garbage_email_edittext"
+        style="@style/EditTextTheme"
+        android:hint="@string/email_string"
+        android:importantForAutofill="no"
+        android:inputType="textEmailAddress"
+
+        app:layout_constraintTop_toBottomOf="@id/as_garbage_collector_textview"
+        app:layout_constraintLeft_toLeftOf="@id/as_garbage_collector_textview"/>
+
+    <EditText
+        android:id="@+id/garbage_password_edittext"
+        style="@style/EditTextTheme"
+        android:hint="@string/password_string"
+        android:importantForAutofill="no"
+        android:inputType="textPassword"
+
+        app:layout_constraintTop_toBottomOf="@id/garbage_email_edittext"
+        app:layout_constraintLeft_toLeftOf="@id/garbage_email_edittext"/>
+
+    <EditText
+        android:id="@+id/garbage_employee_id_edittext"
+        style="@style/EditTextTheme"
+        android:hint="@string/employee_id_string"
+        android:importantForAutofill="no"
+        android:inputType="number"
+
+        app:layout_constraintTop_toBottomOf="@id/garbage_password_edittext"
+        app:layout_constraintLeft_toLeftOf="@id/garbage_password_edittext"/>
+
+    <Button
+        android:id="@+id/garbage_register_button"
+        style="@style/ButtonTheme"
+        android:text="@string/register_string"
+
+        app:layout_constraintTop_toBottomOf="@id/garbage_employee_id_edittext"
+        app:layout_constraintLeft_toLeftOf="@id/garbage_employee_id_edittext" />
+
+    <ProgressBar
+        android:id="@+id/garbage_progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
