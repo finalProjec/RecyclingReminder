@@ -20,6 +20,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.google.firebase.firestore.FirebaseFirestore
 
 import java.util.ArrayList
 
@@ -27,35 +28,22 @@ class HomeOwnerDashboard : AppCompatActivity() {
 
     internal lateinit var listViewViolations: ListView
     internal lateinit var violations: MutableList<Violation>
-    internal lateinit var databaseHomeOwners: DatabaseReference
+    private val db = FirebaseFirestore.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.homeowner_dashboard)
 
-        databaseHomeOwners = FirebaseDatabase.getInstance().getReference("homeowners") //Add an ID for that homeowner
         listViewViolations= findViewById<View>(R.id.listViewAuthors) as ListView
         violations = ArrayList()
     }
 
     override fun onStart() {
         super.onStart()
-        databaseHomeOwners.addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
-
+        db.collection("homeowners").get()
+            .addOnSuccessListener{dataSnapshot ->
                 //clearing the previous list
                 violations.clear()
-
-                // getting violations only for the Current User
-                val userShot = dataSnapshot.child(intent.getStringExtra(USER_ID)).children
-
-                //iterating through all the nodes
-                for (v in userShot) {
-                    //getting violations
-                    val violation = v.getValue(Violation::class.java)
-                    //adding violation to the list
-                    violations.add(violation!!)
-                }
 
 
                 //creating adapter using AuthorList
@@ -63,11 +51,6 @@ class HomeOwnerDashboard : AppCompatActivity() {
                 //attaching adapter to the listview
                 listViewViolations.adapter = violationAdapter
             }
-
-            override fun onCancelled(databaseError: DatabaseError) {
-
-            }
-        })
     }
 
     companion object {

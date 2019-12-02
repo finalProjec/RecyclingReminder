@@ -74,6 +74,7 @@ class HomeownerRegistrationActivity : AppCompatActivity() {
         }
 
         registerNewUser(email, password, address, phoneNumber)
+
     }
 
     private fun registerNewUser(
@@ -91,13 +92,13 @@ class HomeownerRegistrationActivity : AppCompatActivity() {
                 progressBar!!.visibility = View.GONE
 
                 // add homeowner to Firestore
-                val uid = mAuth!!.currentUser!!.uid
+                val email = emailET?.text.toString()
                 val docData = hashMapOf(
                     "phonenumber" to phoneNumber,
                     "address" to address
                 )
 
-                firestore.collection(HOMEOWNERS).document(uid).set(docData)
+                firestore.collection(HOMEOWNERS).document(email).set(docData)
                     .addOnSuccessListener {
                         Log.d(
                             GarbageCollectorRegistrationActivity.TAG, "New user added successfully"

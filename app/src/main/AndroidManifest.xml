@@ -39,6 +39,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".HomeOwnerDashboard" />
         <activity android:name=".RegistrationChoiceActivity" />
         <activity android:name=".LoginActivity" />
         <activity android:name=".GarbageCollectorRegistrationActivity">

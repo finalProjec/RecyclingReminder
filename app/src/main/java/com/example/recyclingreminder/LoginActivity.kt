@@ -69,7 +69,7 @@ class LoginActivity : AppCompatActivity() {
                 progressBar!!.visibility = View.GONE
                 if (task.isSuccessful) {
                     // check if employee ID exists in the Firestore database
-                    checkFirestore(mAuth!!.currentUser!!.uid)
+                    checkFirestore(userEmail?.text.toString())
                 } else {
                     Toast.makeText(
                         applicationContext, "Login failed! Please try again later",
@@ -80,9 +80,9 @@ class LoginActivity : AppCompatActivity() {
             }
     }
 
-    private fun checkFirestore(uid: String) {
-        val homeownerDocRef = firestore.collection(HOMEOWNERS).document(uid)
-        val garbageDocRef = firestore.collection(GARBAGECOLLECTORS).document(uid)
+    private fun checkFirestore(email: String) {
+        val homeownerDocRef = firestore.collection(HOMEOWNERS).document(email)
+        val garbageDocRef = firestore.collection(GARBAGECOLLECTORS).document(email)
 
         homeownerDocRef.get()
             .addOnSuccessListener { document ->
