@@ -27,6 +27,7 @@ class GarbageCollectorRegistrationActivity : AppCompatActivity() {
     private var employeeIdET: EditText? = null
     private var regBtn: Button? = null
     private var progressBar: ProgressBar? = null
+
     private var mAuth: FirebaseAuth? = null
     private val firestore = FirebaseFirestore.getInstance()
 
@@ -42,6 +43,16 @@ class GarbageCollectorRegistrationActivity : AppCompatActivity() {
         regBtn!!.setOnClickListener { validateInput() }
     }
 
+    override fun onRestart() {
+        super.onRestart()
+
+        initializeUI()
+        emailET!!.setText("")
+        passwordET!!.setText("")
+        employeeIdET!!.setText("")
+    }
+
+
     private fun validateInput() {
         Log.i(TAG, "validateInput")
 
@@ -50,7 +61,7 @@ class GarbageCollectorRegistrationActivity : AppCompatActivity() {
         val email: String = emailET!!.text.toString()
         val password: String = passwordET!!.text.toString()
         val employeeID: String =
-            employeeIdET!!.text.toString()//TODO: employee ID not stored anywhere
+            employeeIdET!!.text.toString()
         //val phoneNumber: String = phoneNumberET!!.text.toString()
 
         if (TextUtils.isEmpty(email) || !email.endsWith(emailDomain)) {
@@ -97,7 +108,6 @@ class GarbageCollectorRegistrationActivity : AppCompatActivity() {
     private fun registerNewUser(email: String, password: String, employeeID: String) {
         Log.i(TAG, "registerNewUser")
 
-        //TODO: change to phone number later
         mAuth!!.createUserWithEmailAndPassword(email, password).addOnCompleteListener { task ->
             if (task.isSuccessful) {
                 Toast.makeText(applicationContext, "Registration successful!", Toast.LENGTH_LONG)

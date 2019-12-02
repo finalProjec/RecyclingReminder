@@ -41,6 +41,14 @@ class LoginActivity : AppCompatActivity() {
         loginBtn!!.setOnClickListener { validateInput() }
     }
 
+    override fun onRestart() {
+        super.onRestart()
+
+        initializeUI()
+        userEmail!!.setText("")
+        userPassword!!.setText("")
+    }
+
     private fun validateInput() {
         progressBar!!.visibility = View.VISIBLE
 

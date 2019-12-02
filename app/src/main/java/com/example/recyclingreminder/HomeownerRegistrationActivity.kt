@@ -26,6 +26,7 @@ class HomeownerRegistrationActivity : AppCompatActivity() {
     private var phoneNumberET: EditText? = null
     private var regBtn: Button? = null
     private var progressBar: ProgressBar? = null
+
     private var mAuth: FirebaseAuth? = null
     private val firestore = FirebaseFirestore.getInstance()
 
@@ -38,6 +39,16 @@ class HomeownerRegistrationActivity : AppCompatActivity() {
         initializeUI()
 
         regBtn!!.setOnClickListener { validateInputs() }
+    }
+
+    override fun onRestart() {
+        super.onRestart()
+
+        initializeUI()
+        emailET!!.setText("")
+        passwordET!!.setText("")
+        addressET!!.setText("")
+        phoneNumberET!!.setText("")
     }
 
     private fun validateInputs() {
