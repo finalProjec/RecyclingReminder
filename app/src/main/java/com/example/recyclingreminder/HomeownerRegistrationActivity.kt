@@ -92,7 +92,7 @@ class HomeownerRegistrationActivity : AppCompatActivity() {
                 progressBar!!.visibility = View.GONE
 
                 // add homeowner to Firestore
-                val email = emailET?.text.toString()
+                val email = email
                 val docData = hashMapOf(
                     "phonenumber" to phoneNumber,
                     "address" to address

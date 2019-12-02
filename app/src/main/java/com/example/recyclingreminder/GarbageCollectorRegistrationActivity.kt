@@ -105,10 +105,9 @@ class GarbageCollectorRegistrationActivity : AppCompatActivity() {
                 progressBar!!.visibility = View.GONE
 
                 //add user to Firestore
-                val uid = mAuth!!.currentUser!!.uid
                 val docData = hashMapOf("employee id" to employeeID)
 
-                firestore.collection(GARBAGECOLLECTORS).document(uid).set(docData)
+                firestore.collection(GARBAGECOLLECTORS).document(email).set(docData)
                     .addOnSuccessListener { Log.d(TAG, "New user added successfully") }
                     .addOnFailureListener { Log.w(TAG, "Error adding new user") }
 

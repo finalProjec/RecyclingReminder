@@ -69,7 +69,7 @@ class LoginActivity : AppCompatActivity() {
                 progressBar!!.visibility = View.GONE
                 if (task.isSuccessful) {
                     // check if employee ID exists in the Firestore database
-                    checkFirestore(userEmail?.text.toString())
+                    checkFirestore(email)
                 } else {
                     Toast.makeText(
                         applicationContext, "Login failed! Please try again later",
