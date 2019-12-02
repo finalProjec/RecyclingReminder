@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">RecyclingReminder</string>
+    <string name="sign_up_string">Sign Up</string>
+    <string name="as_homeowner_string">As Homeowner</string>
+    <string name="as_garbage_collector_string">As Garbage Collector</string>
+    <string name="name_string">Name</string>
+    <string name="address_string">Address</string>
+    <string name="phone_number_string">Phone Number</string>
+    <string name="employee_id_string">Employee ID</string>
+    <string name="register_string">Register</string>
+    <string name="password_string">Password</string>
+    <string name="email_string">Email</string>
+    <string name="title_activity_garbage_collector_dashboard">Map</string>
+    <string name="login">LOGIN</string>
+    <string name="as_garbage_collector">As Garbage Collector</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="loginButton1">Login</string>
+    <string name="loginTitle">LOGIN</string>
+    <string name="loginButton">Login</string>
+</resources>
