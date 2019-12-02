@@ -27,8 +27,6 @@ class HomeownerLoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login_homeowner)
 
-//        mDatabase = FirebaseDatabase.getInstance()
-//        mDatabaseReference = mDatabase!!.reference!!.child("Users")
         mAuth = FirebaseAuth.getInstance()
 
         initializeUI()

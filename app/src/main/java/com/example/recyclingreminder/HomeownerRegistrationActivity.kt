@@ -3,13 +3,14 @@ package com.example.recyclingreminder
 import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
-import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 
 class HomeownerRegistrationActivity : AppCompatActivity() {
 
@@ -18,8 +19,8 @@ class HomeownerRegistrationActivity : AppCompatActivity() {
     private var addressET: EditText? = null
     private var phoneNumberET: EditText? = null
     private var regBtn: Button? = null
-    private var progressBar: ProgressBar? = null
     private var mAuth: FirebaseAuth? = null
+    val db = FirebaseFirestore.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,7 +34,6 @@ class HomeownerRegistrationActivity : AppCompatActivity() {
     }
 
     private fun registerNewUser() {
-        progressBar!!.visibility = View.VISIBLE
 
         val email: String = emailET!!.text.toString()
         val password: String = passwordET!!.text.toString()
@@ -41,36 +41,38 @@ class HomeownerRegistrationActivity : AppCompatActivity() {
         val phoneNumber: String = phoneNumberET!!.text.toString()
 
         if (TextUtils.isEmpty(email)) {
-            Toast.makeText(applicationContext, "Please enter your name...", Toast.LENGTH_LONG)
+            Toast.makeText(applicationContext, "Please enter an email ID...", Toast.LENGTH_LONG)
                 .show()
-            progressBar!!.visibility = View.GONE
             return
         }
         if (TextUtils.isEmpty(password)) {
-            Toast.makeText(applicationContext, "Please enter your password...", Toast.LENGTH_LONG)
+            Toast.makeText(applicationContext, "Please enter a password...", Toast.LENGTH_LONG)
                 .show()
-            progressBar!!.visibility = View.GONE
             return
         }
         if (TextUtils.isEmpty(address)) {
-            Toast.makeText(applicationContext, "Please enter your employee ID!", Toast.LENGTH_LONG)
+            Toast.makeText(applicationContext, "Please enter an address...", Toast.LENGTH_LONG)
                 .show()
-            progressBar!!.visibility = View.GONE
             return
         }
         if (TextUtils.isEmpty(phoneNumber)) {
-            Toast.makeText(applicationContext, "Please enter your phone Number!", Toast.LENGTH_LONG)
+            Toast.makeText(applicationContext, "Please enter a phone Number...", Toast.LENGTH_LONG)
                 .show()
-            progressBar!!.visibility = View.GONE
-            return
         }
+
+        val user = hashMapOf(
+            "phoneNumber" to phoneNumber,
+            "address" to address,
+            "violations" to ""
+        )
+        db.collection("homeowners").document(email).set(user)
+
 
         //TODO: change to phone number later
         mAuth!!.createUserWithEmailAndPassword(email, password).addOnCompleteListener { task ->
             if (task.isSuccessful) {
                 Toast.makeText(applicationContext, "Registration successful!", Toast.LENGTH_LONG)
                     .show()
-                progressBar!!.visibility = View.GONE
 
                 val intent = Intent(
                     this@HomeownerRegistrationActivity,
@@ -93,6 +95,5 @@ class HomeownerRegistrationActivity : AppCompatActivity() {
         addressET = findViewById(R.id.homeowner_address_edittext)
         phoneNumberET = findViewById(R.id.homeowner_phone_number_edittext)
         regBtn = findViewById(R.id.homeowner_register_button)
-        progressBar = findViewById(R.id.homeowner_progress_bar)
     }
 }
