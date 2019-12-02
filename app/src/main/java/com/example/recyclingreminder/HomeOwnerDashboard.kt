@@ -40,12 +40,12 @@ class HomeOwnerDashboard : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-        db.collection("homeowners").get()
+        val email = intent.getStringExtra("email")
+        db.collection("homeowners").document("email").get()
             .addOnSuccessListener{dataSnapshot ->
                 //clearing the previous list
                 violations.clear()
-
-
+                
                 //creating adapter using AuthorList
                 val violationAdapter = ViolationList(this@HomeOwnerDashboard, violations)
                 //attaching adapter to the listview

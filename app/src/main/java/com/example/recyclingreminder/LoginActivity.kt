@@ -117,6 +117,7 @@ class LoginActivity : AppCompatActivity() {
                         .show()
 
                     val intent = Intent(this, HomeOwnerDashboard::class.java)
+                    intent.putExtra("email", email)
                     startActivity(intent)
                 }
             }
