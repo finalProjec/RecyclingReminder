@@ -26,12 +26,22 @@
              You can define the keys for the debug and release targets in src/debug/ and src/release/.
         -->
         <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+
+        <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyC_PAd4oNEEuurgsS8WBsNk_K3m6cu1cQQ" />
+            android:value="@string/google_maps_key" />
 
         <activity
             android:name=".GarbageCollectorDashboardActivity"
-            android:label="@string/title_activity_garbage_collector_dashboard"></activity>
+            android:label="@string/title_activity_maps">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
