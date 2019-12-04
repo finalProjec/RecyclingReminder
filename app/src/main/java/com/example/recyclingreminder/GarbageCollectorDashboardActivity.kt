@@ -8,6 +8,7 @@ import android.location.Location
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -86,6 +87,8 @@ class GarbageCollectorDashboardActivity : AppCompatActivity(), OnMapReadyCallbac
                     infoSnippets.setText(marker.snippet)
 
                     //set button listener here
+                    var infoButton: Button = v.findViewById(R.id.info_button)
+                    infoButton.setOnClickListener {  }
                 } catch (e: Exception) {e.printStackTrace()}
 
                 return v
@@ -142,7 +145,7 @@ class GarbageCollectorDashboardActivity : AppCompatActivity(), OnMapReadyCallbac
 
         val titleStr = getAddress(location)
         Log.i(TAG, "------address: " + titleStr)
-        markerOptions.title("testing")
+        markerOptions.snippet("testing")
 
         mMap.addMarker(markerOptions)
     }
