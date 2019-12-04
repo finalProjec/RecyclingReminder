@@ -121,20 +121,24 @@ class HomeownerRegistrationActivity : AppCompatActivity() {
 
                 //ONLY FOR TESTING NEEDS TO BE COMMENTED FROM HERE
 
-                val currentDate = LocalDateTime.now()
+                for (i in 1..10) {
+                    val currentDate = LocalDateTime.now()
 
-                val formatter = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM)
-                val formatted = currentDate.format(formatter).toString()
+                    val formatter = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM)
+                    val formatted = currentDate.format(formatter).toString()
 
-                firestore.collection(HOMEOWNERS).document(email).update("violations", FieldValue.arrayUnion(formatted))
-                    .addOnSuccessListener {
-                        Log.d(
-                            "TAG", "Violation added successfully"
-                        )
-                    }
-                    .addOnFailureListener {
-                        Log.w("TAG", "Error adding violation")
-                    }
+                    firestore.collection(HOMEOWNERS).document(email).update("violations", FieldValue.arrayUnion(formatted))
+                        .addOnSuccessListener {
+                            Log.d(
+                                "TAG", "Violation added successfully"
+                            )
+                        }
+                        .addOnFailureListener {
+                            Log.w("TAG", "Error adding violation")
+                        }
+                }
+
+
 
                 //TILL HERE
 
