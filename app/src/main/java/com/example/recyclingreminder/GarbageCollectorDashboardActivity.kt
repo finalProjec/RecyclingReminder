@@ -7,6 +7,9 @@ import android.location.Geocoder
 import android.location.Location
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import com.google.android.gms.location.FusedLocationProviderClient
@@ -69,7 +72,36 @@ class GarbageCollectorDashboardActivity : AppCompatActivity(), OnMapReadyCallbac
 
         mMap.uiSettings.setZoomControlsEnabled(true)
         mMap.setOnMarkerClickListener(this)
+
+        mMap.setInfoWindowAdapter(object: GoogleMap.InfoWindowAdapter {
+            override fun getInfoWindow(marker: Marker): View? {
+                return null
+            }
+
+            override fun getInfoContents(marker: Marker): View? {
+                var v: View? = null
+                try {
+                    v = layoutInflater.inflate(R.layout.info_window, null)
+                    var infoSnippets: TextView = v.findViewById(R.id.info_snippet)
+                    infoSnippets.setText(marker.snippet)
+
+                    //set button listener here
+                } catch (e: Exception) {e.printStackTrace()}
+
+                return v
+            }
+        })
+
+        mMap.setOnInfoWindowClickListener { marker ->
+            Toast.makeText(this, "Selected", Toast.LENGTH_SHORT).show();
+        }
+
+
+
+
         //might need to hard code markers for each house
+
+
 
         setUpMap()
     }
@@ -87,8 +119,8 @@ class GarbageCollectorDashboardActivity : AppCompatActivity(), OnMapReadyCallbac
         }
 
         mMap.isMyLocationEnabled = true // enables the my-location layer which draws a light blue
-                                        // dot on the user’s location. It also adds a button to the
-                                        // map that, when tapped, centers the map on the user’s location.
+        // dot on the user’s location. It also adds a button to the
+        // map that, when tapped, centers the map on the user’s location.
 
         // gives you the most recent location currently available.
         fusedLocationClient.lastLocation.addOnSuccessListener(this) { location ->
