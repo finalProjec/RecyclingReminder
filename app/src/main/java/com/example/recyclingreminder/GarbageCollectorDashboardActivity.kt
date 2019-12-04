@@ -133,7 +133,9 @@ class GarbageCollectorDashboardActivity : AppCompatActivity(), OnMapReadyCallbac
                 lastLocation = location
                 val currentLatLng = LatLng(38.973857, -76.942229)
                 placeMarkerOnMap(currentLatLng)
-                placeMarkerOnMap(LatLng(location.latitude + 0.02, location.longitude + 0.02))
+                placeMarkerOnMap(LatLng(38.973857 + 0.0002, -76.942229 + 0.0002))
+                //placeMarkerOnMap(LatLng(location.latitude + 0.002, location.longitude + 0.001))
+                //placeMarkerOnMap(LatLng(location.latitude + 0.003, location.longitude + 0.001))
                 mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 18f))
             }
         }
