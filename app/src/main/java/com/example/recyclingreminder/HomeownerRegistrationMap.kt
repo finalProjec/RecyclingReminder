@@ -108,7 +108,7 @@ class HomeownerRegistrationMap : AppCompatActivity(), OnMapReadyCallback {
         // dot on the user’s location. It also adds a button to the
         // map that, when tapped, centers the map on the user’s location.
 
-        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(LatLng(38.972747, -76.937518), 18f))
+        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(LatLng(38.990016, -76.936253), 18f))
     }
 
     private fun placeMarkerOnMap(markerOptions: MarkerOptions) {

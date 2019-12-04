@@ -9,6 +9,7 @@ import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import com.google.android.gms.location.FusedLocationProviderClient
@@ -134,6 +135,8 @@ class GarbageCollectorDashboardActivity : AppCompatActivity(), OnMapReadyCallbac
                     val formatted = currentDate.format(formatter).toString()
                     firestore.collection(HOMEOWNERS).document(email).update("violations", FieldValue.arrayUnion(formatted))
                         .addOnSuccessListener {
+                            Toast.makeText(this, "Violation added successfully", Toast.LENGTH_SHORT).show()
+                            mMap.clear()
                             Log.d(
                                 "TAG", "Violation added successfully"
                             )
