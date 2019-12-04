@@ -11,7 +11,13 @@ import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
+import java.text.SimpleDateFormat
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
+import java.time.format.FormatStyle
+import java.util.*
 
 class HomeownerRegistrationActivity : AppCompatActivity() {
 
@@ -56,7 +62,7 @@ class HomeownerRegistrationActivity : AppCompatActivity() {
 
         val email: String = emailET!!.text.toString()
         val password: String = passwordET!!.text.toString()
-        val address: String = addressET!!.text.toString() //TODO: address not stored anywhere
+        val address: String = addressET!!.text.toString()
         val phoneNumber: String = phoneNumberET!!.text.toString()
 
         if (TextUtils.isEmpty(email)) {
@@ -84,6 +90,7 @@ class HomeownerRegistrationActivity : AppCompatActivity() {
             return
         }
 
+
         registerNewUser(email, password, address, phoneNumber)
 
     }
@@ -95,7 +102,6 @@ class HomeownerRegistrationActivity : AppCompatActivity() {
         phoneNumber: String
     ) {
 
-        //TODO: change to phone number later
         mAuth!!.createUserWithEmailAndPassword(email, password).addOnCompleteListener { task ->
             if (task.isSuccessful) {
                 Toast.makeText(applicationContext, "Registration successful!", Toast.LENGTH_LONG)
@@ -112,12 +118,31 @@ class HomeownerRegistrationActivity : AppCompatActivity() {
                 firestore.collection(HOMEOWNERS).document(email).set(docData)
                     .addOnSuccessListener {
                         Log.d(
-                            GarbageCollectorRegistrationActivity.TAG, "New user added successfully"
+                            "TAG", "New user added successfully"
                         )
                     }
                     .addOnFailureListener {
-                        Log.w(GarbageCollectorRegistrationActivity.TAG, "Error adding new user")
+                        Log.w("TAG", "Error adding new user")
                     }
+
+                //ONLY FOR TESTING NEEDS TO BE COMMENTED FROM HERE
+
+                val currentDate = LocalDateTime.now()
+
+                val formatter = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM)
+                val formatted = currentDate.format(formatter).toString()
+
+                firestore.collection(HOMEOWNERS).document(email).update("violations", FieldValue.arrayUnion(formatted))
+                    .addOnSuccessListener {
+                        Log.d(
+                            "TAG", "Violation added successfully"
+                        )
+                    }
+                    .addOnFailureListener {
+                        Log.w("TAG", "Error adding violation")
+                    }
+
+                //TILL HERE
 
                 val intent = Intent(
                     this@HomeownerRegistrationActivity, LoginActivity::class.java
