@@ -39,11 +39,6 @@ class HomeOwnerDashboard : AppCompatActivity() {
         listViewViolations= findViewById<View>(R.id.listViewViolations) as ListView
         violations = ArrayList()
         editButton = findViewById(R.id.editButton) as ImageButton
-        editButton?.setOnClickListener {
-            var intent = Intent(this, EditHomeownerActivity :: class.java)
-            intent.putExtra("email", intent.getStringExtra("email"))
-            startActivity(intent)
-        }
 
     }
 
@@ -51,6 +46,12 @@ class HomeOwnerDashboard : AppCompatActivity() {
         super.onStart()
         //Logged in users email
         val email = intent.getStringExtra("email")
+
+        editButton?.setOnClickListener {
+            var intent = Intent(this, EditHomeownerActivity :: class.java)
+            intent.putExtra("email", email)
+            startActivity(intent)
+        }
         //Logged in users information
         val homeowner = db.collection("homeowners").document(email)
 
@@ -74,6 +75,3 @@ class HomeOwnerDashboard : AppCompatActivity() {
     companion object {
     }
 }
-
-
-

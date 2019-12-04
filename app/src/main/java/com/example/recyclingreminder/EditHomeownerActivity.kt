@@ -1,6 +1,7 @@
 package com.example.recyclingreminder
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
@@ -9,8 +10,6 @@ import android.widget.Toast
 import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.firestore.FirebaseFirestore
-
-import kotlinx.android.synthetic.main.activity_edit_homeowner.*
 
 class EditHomeownerActivity : AppCompatActivity() {
 
@@ -36,15 +35,18 @@ class EditHomeownerActivity : AppCompatActivity() {
     }
 
     private fun updateUser() {
+
         var email = intent.getStringExtra("email")
+        Log.i("TAG", email.toString())
         val homeowner = db.collection("homeowners").document(email)
         val address = addressET!!.text.toString()
         val number = phoneNumberET!!.text.toString()
+
         if (address != "") {
             homeowner.update("address", address)
         }
         if (number != "") {
-           homeowner.update("phonenumber", number)
+            homeowner.update("phonenumber", number)
         }
 
         Toast.makeText(applicationContext, "Profile updated", Toast.LENGTH_LONG)
@@ -60,4 +62,3 @@ class EditHomeownerActivity : AppCompatActivity() {
         progressBar = findViewById(R.id.homeowner_progress_bar)
     }
 }
-
