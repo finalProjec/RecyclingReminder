@@ -84,7 +84,7 @@ class HomeownerRegistrationActivity : AppCompatActivity() {
         } else {
             registerNewUser(email, password, address, phoneNumber)
         }
-        return
+        return;
     }
 
     private fun registerNewUser(
