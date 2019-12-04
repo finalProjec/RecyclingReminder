@@ -69,30 +69,24 @@ class HomeownerRegistrationActivity : AppCompatActivity() {
             Toast.makeText(applicationContext, "Please enter your name...", Toast.LENGTH_LONG)
                 .show()
             progressBar!!.visibility = View.GONE
-            return
-        }
-        if (TextUtils.isEmpty(password)) {
+        } else if (TextUtils.isEmpty(password)) {
             Toast.makeText(applicationContext, "Please enter your password...", Toast.LENGTH_LONG)
                 .show()
             progressBar!!.visibility = View.GONE
-            return
+
         }
-        if (TextUtils.isEmpty(address)) {
+        else if (TextUtils.isEmpty(address)) {
             Toast.makeText(applicationContext, "Please enter your address!", Toast.LENGTH_LONG)
                 .show()
             progressBar!!.visibility = View.GONE
-            return
-        }
-        if (TextUtils.isEmpty(phoneNumber)) {
+        } else if (TextUtils.isEmpty(phoneNumber)) {
             Toast.makeText(applicationContext, "Please enter your phone Number!", Toast.LENGTH_LONG)
                 .show()
             progressBar!!.visibility = View.GONE
-            return
+        } else {
+            registerNewUser(email, password, address, phoneNumber)
         }
-
-
-        registerNewUser(email, password, address, phoneNumber)
-
+        return
     }
 
     private fun registerNewUser(
