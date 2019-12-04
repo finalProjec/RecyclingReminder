@@ -34,7 +34,7 @@ class EditHomeownerActivity : AppCompatActivity() {
                 phoneNumberET?.setText(phoneNumber)
             }
 
-        updateBtn?.setOnClickListener { updateUser() }
+        updateBtn!!.setOnClickListener { updateUser() }
     }
 
     override fun onRestart() {

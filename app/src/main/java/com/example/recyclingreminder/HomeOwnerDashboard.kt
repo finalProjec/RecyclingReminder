@@ -31,6 +31,7 @@ class HomeOwnerDashboard : AppCompatActivity() {
     internal lateinit var violations: MutableList<String>
     private val db = FirebaseFirestore.getInstance()
     private var editButton: Button? = null
+    private var logoutButton: Button? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,6 +40,9 @@ class HomeOwnerDashboard : AppCompatActivity() {
         listViewViolations= findViewById<View>(R.id.listViewViolations) as ListView
         violations = ArrayList()
         editButton = findViewById(R.id.editButton) as Button
+        logoutButton = findViewById(R.id.logoutButton) as Button
+
+        logoutButton!!.setOnClickListener { finish() }
 
     }
 

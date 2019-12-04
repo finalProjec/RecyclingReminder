@@ -146,6 +146,7 @@ class HomeownerRegistrationActivity : AppCompatActivity() {
                     this@HomeownerRegistrationActivity, LoginActivity::class.java
                 ) //change LoginActivity
                 startActivity(intent)
+                finish()
             } else {
                 Toast.makeText(
                     applicationContext, "Registration failed! Please try again later",
