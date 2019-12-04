@@ -36,6 +36,7 @@ class GarbageCollectorDashboardActivity : AppCompatActivity(), OnMapReadyCallbac
     private lateinit var mMap: GoogleMap
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     private lateinit var lastLocation: Location
+    private var logoutButton: Button? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         Log.i(TAG, "onCreate")
@@ -49,6 +50,9 @@ class GarbageCollectorDashboardActivity : AppCompatActivity(), OnMapReadyCallbac
         mapFragment.getMapAsync(this)
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
+
+        logoutButton = findViewById(R.id.logoutButton) as Button
+        logoutButton!!.setOnClickListener { finish() }
     }
 
     /**
