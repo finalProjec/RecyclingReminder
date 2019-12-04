@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.recyclingreminder">
-
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
          Google Maps Android API v2, but you must specify either coarse or fine
@@ -18,6 +17,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
+
+        <activity
+            android:name=".EditHomeownerActivity"
+            android:label="@string/title_activity_edit_homeowner"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -29,15 +33,13 @@
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
-
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
         <activity
             android:name=".GarbageCollectorDashboardActivity"
-            android:label="@string/title_activity_maps">
-        </activity>
+            android:label="@string/title_activity_maps" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -48,10 +50,8 @@
         <activity android:name=".HomeOwnerDashboard" />
         <activity android:name=".RegistrationChoiceActivity" />
         <activity android:name=".LoginActivity" />
-        <activity android:name=".GarbageCollectorRegistrationActivity">
-        </activity>
-        <activity android:name=".HomeownerRegistrationActivity">
-        </activity>
+        <activity android:name=".GarbageCollectorRegistrationActivity" />
+        <activity android:name=".HomeownerRegistrationActivity" />
     </application>
 
 </manifest>

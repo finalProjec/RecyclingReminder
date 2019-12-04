@@ -19,4 +19,5 @@
     <string name="loginTitle">LOGIN</string>
     <string name="loginButton">Login</string>
     <string name="title_activity_maps">Map</string>
+    <string name="title_activity_edit_homeowner">EditHomeownerActivity</string>
 </resources>

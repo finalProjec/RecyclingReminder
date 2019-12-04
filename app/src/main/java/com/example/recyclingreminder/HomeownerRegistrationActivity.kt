@@ -73,8 +73,10 @@ class HomeownerRegistrationActivity : AppCompatActivity() {
             Toast.makeText(applicationContext, "Please enter your password...", Toast.LENGTH_LONG)
                 .show()
             progressBar!!.visibility = View.GONE
-        } else if (TextUtils.isEmpty(address)) {
-            Toast.makeText(applicationContext, "Please enter your employee ID!", Toast.LENGTH_LONG)
+
+        }
+        else if (TextUtils.isEmpty(address)) {
+            Toast.makeText(applicationContext, "Please enter your address!", Toast.LENGTH_LONG)
                 .show()
             progressBar!!.visibility = View.GONE
         } else if (TextUtils.isEmpty(phoneNumber)) {

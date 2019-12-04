@@ -30,6 +30,7 @@ class HomeOwnerDashboard : AppCompatActivity() {
     internal lateinit var listViewViolations: ListView
     internal lateinit var violations: MutableList<String>
     private val db = FirebaseFirestore.getInstance()
+    private var editButton: ImageButton? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,12 +38,20 @@ class HomeOwnerDashboard : AppCompatActivity() {
 
         listViewViolations= findViewById<View>(R.id.listViewViolations) as ListView
         violations = ArrayList()
+        editButton = findViewById(R.id.editButton) as ImageButton
+
     }
 
     override fun onStart() {
         super.onStart()
         //Logged in users email
         val email = intent.getStringExtra("email")
+
+        editButton?.setOnClickListener {
+            var intent = Intent(this, EditHomeownerActivity :: class.java)
+            intent.putExtra("email", email)
+            startActivity(intent)
+        }
         //Logged in users information
         val homeowner = db.collection("homeowners").document(email)
 
