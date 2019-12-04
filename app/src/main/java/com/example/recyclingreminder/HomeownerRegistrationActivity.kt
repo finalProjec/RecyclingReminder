@@ -78,7 +78,7 @@ class HomeownerRegistrationActivity : AppCompatActivity() {
             return
         }
         if (TextUtils.isEmpty(address)) {
-            Toast.makeText(applicationContext, "Please enter your employee ID!", Toast.LENGTH_LONG)
+            Toast.makeText(applicationContext, "Please enter your address!", Toast.LENGTH_LONG)
                 .show()
             progressBar!!.visibility = View.GONE
             return
