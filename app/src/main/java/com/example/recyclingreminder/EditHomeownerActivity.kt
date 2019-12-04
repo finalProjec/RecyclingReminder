@@ -18,11 +18,21 @@ class EditHomeownerActivity : AppCompatActivity() {
     private var updateBtn: Button? = null
     private var progressBar: ProgressBar? = null
     private val db = FirebaseFirestore.getInstance()
+    private lateinit var email : String
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_homeowner)
         initializeUI()
+        email = intent.getStringExtra("email")
+        db.collection("homeowners").document(email).get()
+            .addOnSuccessListener { document ->
+                var address = document.get("address").toString()
+                var phoneNumber = document.get("phonenumber").toString()
+                addressET?.setText(address)
+                phoneNumberET?.setText(phoneNumber)
+            }
 
         updateBtn?.setOnClickListener { updateUser() }
     }
@@ -35,8 +45,6 @@ class EditHomeownerActivity : AppCompatActivity() {
     }
 
     private fun updateUser() {
-
-        var email = intent.getStringExtra("email")
         Log.i("TAG", email.toString())
         val homeowner = db.collection("homeowners").document(email)
         val address = addressET!!.text.toString()
@@ -52,6 +60,7 @@ class EditHomeownerActivity : AppCompatActivity() {
         Toast.makeText(applicationContext, "Profile updated", Toast.LENGTH_LONG)
             .show()
         progressBar!!.visibility = View.GONE
+        finish()
 
     }
 
