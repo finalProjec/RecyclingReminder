@@ -26,6 +26,9 @@ import java.io.IOException
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
+//import android.support.v4.app.ActivityCompat
+//import android.support.v4.content.ContextCompat
+
 
 
 class GarbageCollectorDashboardActivity : AppCompatActivity(), OnMapReadyCallback,
@@ -117,6 +120,7 @@ class GarbageCollectorDashboardActivity : AppCompatActivity(), OnMapReadyCallbac
 
             val homeownersRef = firestore.collection(HOMEOWNERS)
             lateinit var  email: String
+            lateinit var phoneNumber : String
 
             homeownersRef.whereEqualTo("address", currentSnippet).get()
                 .addOnSuccessListener { documents ->
@@ -124,6 +128,7 @@ class GarbageCollectorDashboardActivity : AppCompatActivity(), OnMapReadyCallbac
                     //find corresponding email in Firestore
                     for(document in documents) {
                         email = document.id
+                        phoneNumber = document.get("phoneNumber").toString()
                     }
 
                     val currentDate = LocalDateTime.now()
@@ -138,6 +143,7 @@ class GarbageCollectorDashboardActivity : AppCompatActivity(), OnMapReadyCallbac
                         .addOnFailureListener {
                             Log.w("TAG", "Error adding violation")
                         }
+
                 }
                 .addOnFailureListener{exception ->
                     Log.w(TAG, "Error getting documents: ", exception)
@@ -241,4 +247,5 @@ class GarbageCollectorDashboardActivity : AppCompatActivity(), OnMapReadyCallbac
     }
 
     override fun onMarkerClick(p0: Marker?) = false
+
 }
