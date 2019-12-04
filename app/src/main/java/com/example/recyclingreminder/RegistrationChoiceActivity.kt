@@ -18,10 +18,12 @@ class RegistrationChoiceActivity : AppCompatActivity() {
         homeownerBtn!!.setOnClickListener {
             val intent = Intent(this, HomeownerRegistrationActivity::class.java)
             startActivity(intent)
+            finish()
         }
         garbageCollectorBtn!!.setOnClickListener {
             val intent = Intent(this, GarbageCollectorRegistrationActivity::class.java)
             startActivity(intent)
+            finish()
         }
     }
 

@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
+import android.util.Patterns
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
@@ -66,24 +67,37 @@ class HomeownerRegistrationActivity : AppCompatActivity() {
         val phoneNumber: String = phoneNumberET!!.text.toString()
 
         if (TextUtils.isEmpty(email)) {
-            Toast.makeText(applicationContext, "Please enter your name...", Toast.LENGTH_LONG)
+            Toast.makeText(applicationContext, "Please enter your email!", Toast.LENGTH_LONG)
                 .show()
             progressBar!!.visibility = View.GONE
-        } else if (TextUtils.isEmpty(password)) {
-            Toast.makeText(applicationContext, "Please enter your password...", Toast.LENGTH_LONG)
+        }
+        else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            Toast.makeText(applicationContext, "Please enter a valid email!", Toast.LENGTH_LONG)
+                .show()
+            progressBar!!.visibility = View.GONE
+        }
+        if (TextUtils.isEmpty(password)) {
+            Toast.makeText(applicationContext, "Please enter your password!", Toast.LENGTH_LONG)
                 .show()
             progressBar!!.visibility = View.GONE
 
         }
-        else if (TextUtils.isEmpty(address)) {
+        if (TextUtils.isEmpty(address)) {
             Toast.makeText(applicationContext, "Please enter your address!", Toast.LENGTH_LONG)
                 .show()
             progressBar!!.visibility = View.GONE
-        } else if (TextUtils.isEmpty(phoneNumber)) {
-            Toast.makeText(applicationContext, "Please enter your phone Number!", Toast.LENGTH_LONG)
+        }
+        if (TextUtils.isEmpty(phoneNumber)) {
+            Toast.makeText(applicationContext, "Please enter your phone number!", Toast.LENGTH_LONG)
                 .show()
             progressBar!!.visibility = View.GONE
-        } else {
+        }
+        else if (!Patterns.PHONE.matcher(phoneNumber).matches()) {
+            Toast.makeText(applicationContext, "Please enter a valid phone number!", Toast.LENGTH_LONG)
+                .show()
+            progressBar!!.visibility = View.GONE
+        }
+        else {
             registerNewUser(email, password, address, phoneNumber)
         }
         return;
@@ -121,20 +135,24 @@ class HomeownerRegistrationActivity : AppCompatActivity() {
 
                 //ONLY FOR TESTING NEEDS TO BE COMMENTED FROM HERE
 
-                val currentDate = LocalDateTime.now()
+                for (i in 1..10) {
+                    val currentDate = LocalDateTime.now()
 
-                val formatter = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM)
-                val formatted = currentDate.format(formatter).toString()
+                    val formatter = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM)
+                    val formatted = currentDate.format(formatter).toString()
 
-                firestore.collection(HOMEOWNERS).document(email).update("violations", FieldValue.arrayUnion(formatted))
-                    .addOnSuccessListener {
-                        Log.d(
-                            "TAG", "Violation added successfully"
-                        )
-                    }
-                    .addOnFailureListener {
-                        Log.w("TAG", "Error adding violation")
-                    }
+                    firestore.collection(HOMEOWNERS).document(email).update("violations", FieldValue.arrayUnion(formatted))
+                        .addOnSuccessListener {
+                            Log.d(
+                                "TAG", "Violation added successfully"
+                            )
+                        }
+                        .addOnFailureListener {
+                            Log.w("TAG", "Error adding violation")
+                        }
+                }
+
+
 
                 //TILL HERE
 
@@ -142,6 +160,7 @@ class HomeownerRegistrationActivity : AppCompatActivity() {
                     this@HomeownerRegistrationActivity, LoginActivity::class.java
                 ) //change LoginActivity
                 startActivity(intent)
+                finish()
             } else {
                 Toast.makeText(
                     applicationContext, "Registration failed! Please try again later",

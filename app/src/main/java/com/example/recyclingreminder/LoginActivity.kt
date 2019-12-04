@@ -113,6 +113,7 @@ class LoginActivity : AppCompatActivity() {
                                 val intent =
                                     Intent(this, GarbageCollectorDashboardActivity::class.java)
                                 startActivity(intent)
+                                finish()
                             }
                         }
                         .addOnFailureListener { exception ->
@@ -127,6 +128,7 @@ class LoginActivity : AppCompatActivity() {
                     val intent = Intent(this, HomeOwnerDashboard::class.java)
                     intent.putExtra("email", email)
                     startActivity(intent)
+                    finish()
                 }
             }
             .addOnFailureListener { exception ->
