@@ -1,5 +1,6 @@
 package com.example.recyclingreminder
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
@@ -14,11 +15,9 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
-import java.text.SimpleDateFormat
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
-import java.util.*
 
 class HomeownerRegistrationActivity : AppCompatActivity() {
 
@@ -32,6 +31,7 @@ class HomeownerRegistrationActivity : AppCompatActivity() {
     private var addressET: EditText? = null
     private var phoneNumberET: EditText? = null
     private var regBtn: Button? = null
+    private var mapButton: Button? = null
     private var progressBar: ProgressBar? = null
 
     private var mAuth: FirebaseAuth? = null
@@ -48,14 +48,16 @@ class HomeownerRegistrationActivity : AppCompatActivity() {
         regBtn!!.setOnClickListener { validateInputs() }
     }
 
-    override fun onRestart() {
-        super.onRestart()
+    fun onClick(v: View) {
+        val intent = Intent(this, HomeownerRegistrationMap::class.java)
+        startActivityForResult(intent, 0)
+    }
 
-        initializeUI()
-        emailET!!.setText("")
-        passwordET!!.setText("")
-        addressET!!.setText("")
-        phoneNumberET!!.setText("")
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == Activity.RESULT_OK && requestCode == 0) {
+            addressET!!.setText(data!!.getStringExtra("ADDRESS").toString())
+        }
     }
 
     private fun validateInputs() {
@@ -169,6 +171,7 @@ class HomeownerRegistrationActivity : AppCompatActivity() {
         addressET = findViewById(R.id.homeowner_address_edittext)
         phoneNumberET = findViewById(R.id.homeowner_phone_number_edittext)
         regBtn = findViewById(R.id.homeowner_register_button)
+        mapButton = findViewById(R.id.homeowner_map_button)
         progressBar = findViewById(R.id.homeowner_progress_bar)
     }
 }

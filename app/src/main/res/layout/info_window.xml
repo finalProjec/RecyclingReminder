@@ -4,24 +4,11 @@
     android:layout_height="wrap_content"
     android:gravity="center_vertical" >
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginRight="10dp" >
-
-        <TextView
-            android:id="@+id/info_snippet"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="snippet" />
-
-    </LinearLayout>
-
     <Button
-        android:id="@+id/info_button"
+        android:id="@+id/info_snippet"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Button" />
+        android:text="Button"
+        android:textColor="@color/colorPrimaryDark"/>
 
 </LinearLayout>
