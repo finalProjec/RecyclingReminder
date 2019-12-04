@@ -106,14 +106,8 @@ class GarbageCollectorDashboardActivity : AppCompatActivity(), OnMapReadyCallbac
                 try {
                     v = layoutInflater.inflate(R.layout.info_window, null)
                     var infoSnippets: TextView = v.findViewById(R.id.info_snippet)
-                    infoSnippets.setText(marker.snippet)
+                    infoSnippets.setText("Mark: " + marker.snippet + "?")
                     currentSnippet = marker.snippet
-
-                    //set button listener here
-                    var infoButton: Button = v.findViewById(R.id.info_button)
-                    infoButton.setOnClickListener {
-                        Log.i(TAG, "--------------clicked")
-                    }
                 } catch (e: Exception) {e.printStackTrace()}
 
                 return v
@@ -152,11 +146,6 @@ class GarbageCollectorDashboardActivity : AppCompatActivity(), OnMapReadyCallbac
                 .addOnFailureListener{exception ->
                     Log.w(TAG, "Error getting documents: ", exception)
                 }
-
-
-
-
-
         }
 
         setUpMap()

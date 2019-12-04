@@ -59,6 +59,7 @@
         <activity android:name=".LoginActivity" />
         <activity android:name=".GarbageCollectorRegistrationActivity" />
         <activity android:name=".HomeownerRegistrationActivity" />
+        <activity android:name=".HomeownerRegistrationMap" />
     </application>
 
 </manifest>
