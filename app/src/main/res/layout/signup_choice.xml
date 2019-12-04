@@ -7,49 +7,41 @@ android:layout_height="match_parent"
 android:visibility="visible"
 tools:visibility="visible">
 
-<TextView
-    android:id="@+id/signUpChoiceTitle"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_marginTop="16dp"
+    <TextView
+        android:id="@+id/signUpChoiceTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="152dp"
 
-    android:textSize="48sp"
-    android:textStyle="bold"
-    android:visibility="visible"
-    app:layout_constraintLeft_toLeftOf="parent"
-    app:layout_constraintRight_toRightOf="parent"
-    app:layout_constraintTop_toTopOf="parent"
-    tools:text="REGISTER" />
+        android:text="REGISTER"
+        android:textSize="32sp"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-<Button
-    android:id="@+id/homeowner_signup"
-    android:layout_width="224dp"
-    android:layout_height="47dp"
-    android:layout_marginStart="16dp"
-    android:layout_marginTop="180dp"
-    android:layout_marginEnd="16dp"
-    android:layout_marginBottom="422dp"
-    android:background="@android:color/transparent"
-    android:text="As Homeowner"
-    app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@+id/signUpChoiceTitle" />
+    <Button
+        android:id="@+id/homeowner_signup"
+        android:layout_width="224dp"
+        android:layout_height="47dp"
+        android:layout_marginTop="108dp"
+        android:background="@android:color/transparent"
+        android:text="As Homeowner"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/signUpChoiceTitle" />
 
-<Button
+    <Button
     android:id="@+id/garbagecollector_signup"
     android:layout_width="224dp"
     android:layout_height="47dp"
-    android:layout_marginStart="16dp"
-    android:layout_marginTop="300dp"
-    android:layout_marginEnd="16dp"
     android:layout_marginBottom="422dp"
     android:background="@android:color/transparent"
     android:text="As Garbage Collector"
-    app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@+id/signUpChoiceTitle" />
+    app:layout_constraintTop_toBottomOf="@+id/homeowner_signup" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

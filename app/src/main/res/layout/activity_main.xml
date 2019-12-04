@@ -8,22 +8,6 @@
     android:gravity="clip_vertical"
     android:orientation="vertical">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="250dp"
-        android:orientation="vertical"
-        tools:context=".MainActivity">
-
-        <TextView
-            android:id="@+id/editTextWelcome"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:ems="10"
-            android:gravity="center"
-            android:text="WELCOME TO RECYCLING REMINDER!"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large" />
-    </LinearLayout>
-
     <ImageView
         android:id="@+id/recycling_icon"
         android:layout_width="433dp"
