@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
+import android.util.Patterns
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
@@ -66,24 +67,37 @@ class HomeownerRegistrationActivity : AppCompatActivity() {
         val phoneNumber: String = phoneNumberET!!.text.toString()
 
         if (TextUtils.isEmpty(email)) {
-            Toast.makeText(applicationContext, "Please enter your name...", Toast.LENGTH_LONG)
+            Toast.makeText(applicationContext, "Please enter your email!", Toast.LENGTH_LONG)
                 .show()
             progressBar!!.visibility = View.GONE
-        } else if (TextUtils.isEmpty(password)) {
-            Toast.makeText(applicationContext, "Please enter your password...", Toast.LENGTH_LONG)
+        }
+        else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            Toast.makeText(applicationContext, "Please enter a valid email!", Toast.LENGTH_LONG)
+                .show()
+            progressBar!!.visibility = View.GONE
+        }
+        if (TextUtils.isEmpty(password)) {
+            Toast.makeText(applicationContext, "Please enter your password!", Toast.LENGTH_LONG)
                 .show()
             progressBar!!.visibility = View.GONE
 
         }
-        else if (TextUtils.isEmpty(address)) {
+        if (TextUtils.isEmpty(address)) {
             Toast.makeText(applicationContext, "Please enter your address!", Toast.LENGTH_LONG)
                 .show()
             progressBar!!.visibility = View.GONE
-        } else if (TextUtils.isEmpty(phoneNumber)) {
-            Toast.makeText(applicationContext, "Please enter your phone Number!", Toast.LENGTH_LONG)
+        }
+        if (TextUtils.isEmpty(phoneNumber)) {
+            Toast.makeText(applicationContext, "Please enter your phone number!", Toast.LENGTH_LONG)
                 .show()
             progressBar!!.visibility = View.GONE
-        } else {
+        }
+        else if (!Patterns.PHONE.matcher(phoneNumber).matches()) {
+            Toast.makeText(applicationContext, "Please enter a valid phone number!", Toast.LENGTH_LONG)
+                .show()
+            progressBar!!.visibility = View.GONE
+        }
+        else {
             registerNewUser(email, password, address, phoneNumber)
         }
         return;
