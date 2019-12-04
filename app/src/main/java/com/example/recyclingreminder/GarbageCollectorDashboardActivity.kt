@@ -51,6 +51,11 @@ class GarbageCollectorDashboardActivity : AppCompatActivity(), OnMapReadyCallbac
 
     private val firestore = FirebaseFirestore.getInstance()
 
+    private lateinit var phoneNumber : String
+
+    private var message = "You did not separate your recyclables on "
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         Log.i(TAG, "onCreate")
 
@@ -120,7 +125,6 @@ class GarbageCollectorDashboardActivity : AppCompatActivity(), OnMapReadyCallbac
 
             val homeownersRef = firestore.collection(HOMEOWNERS)
             lateinit var  email: String
-            lateinit var phoneNumber : String
 
             homeownersRef.whereEqualTo("address", currentSnippet).get()
                 .addOnSuccessListener { documents ->
@@ -248,4 +252,40 @@ class GarbageCollectorDashboardActivity : AppCompatActivity(), OnMapReadyCallbac
 
     override fun onMarkerClick(p0: Marker?) = false
 
+    //    protected fun sendSMSMessage() {
+//      if (ContextCompat.checkSelfPermission(this,
+//         Manifest.permission.SEND_SMS)
+//         != PackageManager.PERMISSION_GRANTED) {
+//            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+//               Manifest.permission.SEND_SMS)) {
+//            } else {
+//               ActivityCompat.requestPermissions(this,
+//                  new String[]{Manifest.permission.SEND_SMS},
+//                  MY_PERMISSIONS_REQUEST_SEND_SMS);
+//            }
+//      }
+//   }
+//
+//   @Override
+//   public fun onRequestPermissionsResult(int requestCode,String permissions[], int[] grantResults) {
+//        val currentDate = LocalDateTime.now()
+//        val formatter = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM)
+//        val formatted = currentDate.format(formatter).toString()
+//      switch (requestCode) {
+//         case MY_PERMISSIONS_REQUEST_SEND_SMS: {
+//            if (grantResults.length > 0
+//               && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+//                  SmsManager smsManager = SmsManager.getDefault();
+//                  smsManager.sendTextMessage(phoneNumber, null, message + formatted, null, null);
+//                  Toast.makeText(getApplicationContext(), "SMS sent.",
+//                     Toast.LENGTH_LONG).show();
+//            } else {
+//               Toast.makeText(getApplicationContext(),
+//                  "SMS faild, please try again.", Toast.LENGTH_LONG).show();
+//               return;
+//            }
+//         }
+//      }
+//
+//   }
 }
