@@ -100,7 +100,7 @@ class HomeownerRegistrationActivity : AppCompatActivity() {
         else {
             registerNewUser(email, password, address, phoneNumber)
         }
-        return;
+        return
     }
 
     private fun registerNewUser(
@@ -131,6 +131,21 @@ class HomeownerRegistrationActivity : AppCompatActivity() {
                     }
                     .addOnFailureListener {
                         Log.w("TAG", "Error adding new user")
+                    }
+
+                val currentDate = LocalDateTime.now()
+
+                val formatter = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM)
+                val formatted = currentDate.format(formatter).toString()
+
+                firestore.collection(HOMEOWNERS).document(email).update("violations", FieldValue.arrayUnion(formatted))
+                    .addOnSuccessListener {
+                        Log.d(
+                            "TAG", "Violation added successfully"
+                        )
+                    }
+                    .addOnFailureListener {
+                        Log.w("TAG", "Error adding violation")
                     }
 
                 val intent = Intent(
