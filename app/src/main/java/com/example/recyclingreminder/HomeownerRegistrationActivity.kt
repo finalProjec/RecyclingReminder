@@ -133,29 +133,6 @@ class HomeownerRegistrationActivity : AppCompatActivity() {
                         Log.w("TAG", "Error adding new user")
                     }
 
-                //ONLY FOR TESTING NEEDS TO BE COMMENTED FROM HERE
-
-                for (i in 1..10) {
-                    val currentDate = LocalDateTime.now()
-
-                    val formatter = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM)
-                    val formatted = currentDate.format(formatter).toString()
-
-                    firestore.collection(HOMEOWNERS).document(email).update("violations", FieldValue.arrayUnion(formatted))
-                        .addOnSuccessListener {
-                            Log.d(
-                                "TAG", "Violation added successfully"
-                            )
-                        }
-                        .addOnFailureListener {
-                            Log.w("TAG", "Error adding violation")
-                        }
-                }
-
-
-
-                //TILL HERE
-
                 val intent = Intent(
                     this@HomeownerRegistrationActivity, LoginActivity::class.java
                 ) //change LoginActivity
