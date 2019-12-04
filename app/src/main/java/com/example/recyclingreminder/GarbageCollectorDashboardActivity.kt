@@ -9,7 +9,6 @@ import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import com.google.android.gms.location.FusedLocationProviderClient
@@ -21,7 +20,12 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
+import com.google.firebase.firestore.FieldValue
+import com.google.firebase.firestore.FirebaseFirestore
 import java.io.IOException
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
+import java.time.format.FormatStyle
 
 
 class GarbageCollectorDashboardActivity : AppCompatActivity(), OnMapReadyCallback,
@@ -30,12 +34,18 @@ class GarbageCollectorDashboardActivity : AppCompatActivity(), OnMapReadyCallbac
     companion object {
         val TAG = "final"
         private const val LOCATION_PERMISSION_REQUEST_CODE = 1
+        val HOMEOWNERS = "homeowners"
     }
 
     private lateinit var mMap: GoogleMap
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     private lateinit var lastLocation: Location
     private lateinit var markers: HashMap<MarkerOptions, String>
+    private lateinit var previousMarker: MarkerOptions
+
+    private lateinit var currentSnippet: String
+
+    private val firestore = FirebaseFirestore.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         Log.i(TAG, "onCreate")
@@ -66,13 +76,13 @@ class GarbageCollectorDashboardActivity : AppCompatActivity(), OnMapReadyCallbac
         mMap = googleMap
         mMap.mapType = GoogleMap.MAP_TYPE_NORMAL
 
-        /*// Add a marker in Sydney and move the camera
-        val collegePark = LatLng(38.98582939, -76.937329584)
-        mMap.addMarker(MarkerOptions().position(collegePark).title("College Park"))
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(collegePark, 16.0f))*/
-
         mMap.uiSettings.setZoomControlsEnabled(true)
         mMap.setOnMarkerClickListener(this)
+
+        mMap.setOnMapClickListener { latLng ->
+            mMap.clear()
+            placeMarkerOnMap(MarkerOptions().position(latLng))
+        }
 
         mMap.setInfoWindowAdapter(object: GoogleMap.InfoWindowAdapter {
             override fun getInfoWindow(marker: Marker): View? {
@@ -85,10 +95,13 @@ class GarbageCollectorDashboardActivity : AppCompatActivity(), OnMapReadyCallbac
                     v = layoutInflater.inflate(R.layout.info_window, null)
                     var infoSnippets: TextView = v.findViewById(R.id.info_snippet)
                     infoSnippets.setText(marker.snippet)
+                    currentSnippet = marker.snippet
 
                     //set button listener here
                     var infoButton: Button = v.findViewById(R.id.info_button)
-                    infoButton.setOnClickListener {  }
+                    infoButton.setOnClickListener {
+                        Log.i(TAG, "--------------clicked")
+                    }
                 } catch (e: Exception) {e.printStackTrace()}
 
                 return v
@@ -96,15 +109,41 @@ class GarbageCollectorDashboardActivity : AppCompatActivity(), OnMapReadyCallbac
         })
 
         mMap.setOnInfoWindowClickListener { marker ->
-            Toast.makeText(this, "Selected", Toast.LENGTH_SHORT).show();
+            Log.i(TAG, currentSnippet)
+
+            val homeownersRef = firestore.collection(HOMEOWNERS)
+            lateinit var  email: String
+
+            homeownersRef.whereEqualTo("address", currentSnippet).get()
+                .addOnSuccessListener { documents ->
+
+                    //find corresponding email in Firestore
+                    for(document in documents) {
+                        email = document.id
+                    }
+
+                    val currentDate = LocalDateTime.now()
+                    val formatter = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM)
+                    val formatted = currentDate.format(formatter).toString()
+                    firestore.collection(HOMEOWNERS).document(email).update("violations", FieldValue.arrayUnion(formatted))
+                        .addOnSuccessListener {
+                            Log.d(
+                                "TAG", "Violation added successfully"
+                            )
+                        }
+                        .addOnFailureListener {
+                            Log.w("TAG", "Error adding violation")
+                        }
+                }
+                .addOnFailureListener{exception ->
+                    Log.w(TAG, "Error getting documents: ", exception)
+                }
+
+
+
+
+
         }
-
-
-
-
-        //might need to hard code markers for each house
-        generateMarkers()
-
 
         setUpMap()
     }
@@ -125,9 +164,9 @@ class GarbageCollectorDashboardActivity : AppCompatActivity(), OnMapReadyCallbac
         // dot on the user’s location. It also adds a button to the
         // map that, when tapped, centers the map on the user’s location.
 
-        this.markers.forEach { key, _ ->
-            placeMarkerOnMap(key)
-        }
+//        this.markers.forEach { key, _ ->
+//            placeMarkerOnMap(key)
+//        }
         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(LatLng(38.972747, -76.937518), 18f))
 
 
@@ -151,7 +190,7 @@ class GarbageCollectorDashboardActivity : AppCompatActivity(), OnMapReadyCallbac
     private fun placeMarkerOnMap(markerOptions: MarkerOptions) {
         Log.i(TAG, "placeMarkerOnMap")
 
-        markerOptions.snippet(this.markers[markerOptions])
+        markerOptions.snippet(getAddress(markerOptions.position))
 
         mMap.addMarker(markerOptions)
     }
@@ -162,20 +201,12 @@ class GarbageCollectorDashboardActivity : AppCompatActivity(), OnMapReadyCallbac
         // Creates a Geocoder object to turn a latitude and longitude coordinate into an address and vice versa.
         val geocoder = Geocoder(this)
         val addresses: List<Address>?
-        val address: Address?
         var addressText = ""
 
         try {
             // Asks the geocoder to get the address from the location passed to the method.
             addresses = geocoder.getFromLocation(latLng.latitude, latLng.longitude, 1)
-
-            // If the response contains any address, then append it to a string and return.
-            if (null != addresses && !addresses.isEmpty()) {
-                address = addresses[0]
-                for (i in 0 until address.maxAddressLineIndex) {
-                    addressText += if (i == 0) address.getAddressLine(i) else "\n" + address.getAddressLine(i)
-                }
-            }
+            addressText = addresses[0].subThoroughfare + " " + addresses[0].thoroughfare
         } catch (e: IOException) {
             Log.e(TAG, e.localizedMessage)
         }
