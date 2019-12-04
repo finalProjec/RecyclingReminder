@@ -1,6 +1,5 @@
 package com.example.recyclingreminder
 
-import android.content.Context
 import android.content.pm.PackageManager
 import android.location.Address
 import android.location.Geocoder
@@ -36,6 +35,7 @@ class GarbageCollectorDashboardActivity : AppCompatActivity(), OnMapReadyCallbac
     private lateinit var mMap: GoogleMap
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     private lateinit var lastLocation: Location
+    private lateinit var markers: HashMap<MarkerOptions, String>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         Log.i(TAG, "onCreate")
@@ -103,7 +103,7 @@ class GarbageCollectorDashboardActivity : AppCompatActivity(), OnMapReadyCallbac
 
 
         //might need to hard code markers for each house
-
+        generateMarkers()
 
 
         setUpMap()
@@ -125,29 +125,33 @@ class GarbageCollectorDashboardActivity : AppCompatActivity(), OnMapReadyCallbac
         // dot on the user’s location. It also adds a button to the
         // map that, when tapped, centers the map on the user’s location.
 
-        // gives you the most recent location currently available.
-        fusedLocationClient.lastLocation.addOnSuccessListener(this) { location ->
-            // If you were able to retrieve the the most recent location, then move the camera to
-            // the user’s current location.
-            if (location != null) {
-                lastLocation = location
-                val currentLatLng = LatLng(38.973857, -76.942229)
-                placeMarkerOnMap(currentLatLng)
-                placeMarkerOnMap(LatLng(38.973857 + 0.0002, -76.942229 + 0.0002))
-                //placeMarkerOnMap(LatLng(location.latitude + 0.002, location.longitude + 0.001))
-                //placeMarkerOnMap(LatLng(location.latitude + 0.003, location.longitude + 0.001))
-                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 18f))
-            }
+        this.markers.forEach { key, _ ->
+            placeMarkerOnMap(key)
         }
+        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(LatLng(38.972747, -76.937518), 18f))
+
+
+
+//        // gives you the most recent location currently available.
+//        fusedLocationClient.lastLocation.addOnSuccessListener(this) { location ->
+//            // If you were able to retrieve the the most recent location, then move the camera to
+//            // the user’s current location.
+//            if (location != null) {
+//                lastLocation = location
+//                val currentLatLng = LatLng(38.972747, -76.937518)
+//                placeMarkerOnMap(currentLatLng)
+//                placeMarkerOnMap(LatLng(38.973857 + 0.0002, -76.942229 + 0.0002))
+//                //placeMarkerOnMap(LatLng(location.latitude + 0.002, location.longitude + 0.001))
+//                //placeMarkerOnMap(LatLng(location.latitude + 0.003, location.longitude + 0.001))
+//                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 18f))
+//            }
+//        }
     }
 
-    private fun placeMarkerOnMap(location: LatLng) {
+    private fun placeMarkerOnMap(markerOptions: MarkerOptions) {
         Log.i(TAG, "placeMarkerOnMap")
-        val markerOptions = MarkerOptions().position(location)
 
-        val titleStr = getAddress(location)
-        Log.i(TAG, "------address: " + titleStr)
-        markerOptions.snippet("testing")
+        markerOptions.snippet(this.markers[markerOptions])
 
         mMap.addMarker(markerOptions)
     }
@@ -179,9 +183,26 @@ class GarbageCollectorDashboardActivity : AppCompatActivity(), OnMapReadyCallbac
         return addressText
     }
 
-    fun dpToPx(context: Context, dp: Float): Int {
-        val scale = context.getResources().getDisplayMetrics().density
-        return (dp * scale + 0.5f).toInt()
+    private fun generateMarkers() {
+        this.markers = HashMap<MarkerOptions, String>()
+
+        markers[MarkerOptions().position(LatLng(38.972747, -76.937518))] = "6707 Baltimore Ave"
+        markers[MarkerOptions().position(LatLng(38.972764, -76.937239))] = "4503 Amherst Rd"
+        markers[MarkerOptions().position(LatLng(38.972731, -76.936997))] = "4505 Amherst Rd"
+        markers[MarkerOptions().position(LatLng(38.972726, -76.936771))] = "4507 Amherst Rd"
+        markers[MarkerOptions().position(LatLng(38.972701, -76.936599))] = "4509 Amherst Rd"
+        markers[MarkerOptions().position(LatLng(38.972697, -76.936390))] = "4511 Amherst Rd"
+        markers[MarkerOptions().position(LatLng(38.972634, -76.936165))] = "4513 Amherst Rd"
+        markers[MarkerOptions().position(LatLng(38.972663, -76.935945))] = "4601 Amherst Rd"
+        markers[MarkerOptions().position(LatLng(38.972663, -76.935730))] = "4603 Amherst Rd"
+        markers[MarkerOptions().position(LatLng(38.972642, -76.935499))] = "4605 Amherst Rd"
+        markers[MarkerOptions().position(LatLng(38.972621, -76.935279))] = "4607 Amherst Rd"
+        markers[MarkerOptions().position(LatLng(38.972608, -76.934962))] = "4609 Amherst Rd"
+        markers[MarkerOptions().position(LatLng(38.972579, -76.934726))] = "4611 Amherst Rd"
+        markers[MarkerOptions().position(LatLng(38.972596, -76.934517))] = "4613 Amherst Rd"
+        markers[MarkerOptions().position(LatLng(38.972613, -76.934297))] = "4615 Amherst Rd"
+        markers[MarkerOptions().position(LatLng(38.972613, -76.934297))] = "4615 Amherst Rd"
+        markers[MarkerOptions().position(LatLng(38.972263, -76.934265))] = "6704 Rhode Island Ave"
     }
 
     override fun onMarkerClick(p0: Marker?) = false
